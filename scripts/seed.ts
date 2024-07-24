@@ -68,18 +68,17 @@ const products = [
       "https://images.ctfassets.net/v6ivjcl8qjz2/5yOtc8v8eeS2a6FzWUwCOa/2b54307f652859f81d0081ff41948ff7/hardware-carousel-go-3-right-45-mobile-280x250-2x.png",
   },
 ];
-async function seedUsers(client: VercelPgDatabase<typeof schema>) {
+function seedUsers(client: VercelPgDatabase<typeof schema>) {
   try {
     // Insert data into the "users" table
 
-    const insertedProducts = await Promise.all(
-      products.map(async (product) => {
-        return client
-          .insert(items)
-          .values(product)
-          .onConflictDoNothing({ target: items.id });
-      })
-    );
+    const insertedProducts = products.map(async (product) => {
+      return client
+        .insert(items)
+        .values(product)
+        .onConflictDoNothing({ target: items.id });
+    });
+
     console.log(`Seeded ${insertedProducts.length} users`);
 
     return {
