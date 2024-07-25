@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { getProducts } from "../../server/db/queries";
 
-export function FrontPage() {
+export async function FrontPage() {
+  const products = await getProducts();
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-primary text-primary-foreground py-4 px-6 md:px-8 flex items-center justify-between">
