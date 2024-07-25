@@ -80,151 +80,34 @@ export async function FrontPage() {
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              <div className="bg-background rounded-lg shadow-sm overflow-hidden">
-                <Image
-                  src="https://images.ctfassets.net/v6ivjcl8qjz2/4rR79F5AxJND4uoCPQIT4o/de5b26c425757e54d74fa9757e87c7d2/hardware-carousel-flex-3-right-45-up-mobile-280x250-2x.png"
-                  alt="Flex POS Register"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 space-y-2">
-                  <h3 className="text-lg font-medium">Flex</h3>
-                  <p className="text-muted-foreground">
-                    A Full POS in the palm of your hand.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">$599</span>
-                    <Button variant="outline" size="sm">
-                      Add to Cart
-                    </Button>
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="bg-background rounded-lg shadow-sm overflow-hidden"
+                >
+                  <Image
+                    src={product.imageRef}
+                    alt={product.title}
+                    width={300}
+                    height={200}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4 space-y-2">
+                    <h3 className="text-lg font-medium">{product.title}</h3>
+                    <p className="text-muted-foreground">
+                      {product.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-lg">
+                        ${product.price}
+                      </span>
+                      <Button variant="outline" size="sm">
+                        Add to Cart
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="bg-background rounded-lg shadow-sm overflow-hidden">
-                <Image
-                  src="https://images.ctfassets.net/v6ivjcl8qjz2/33lfMYEF5kqkzGrunrGkL2/1a590ff282a0d4565ac163c66d25b9ad/hardware-carousel-kiosk.webp"
-                  alt="kiosk"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 space-y-2">
-                  <h3 className="text-lg font-medium">Kiosk</h3>
-                  <p className="text-muted-foreground">
-                    Quick and easy customer ordering.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">$3,499</span>
-                    <Button variant="outline" size="sm">
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-background rounded-lg shadow-sm overflow-hidden">
-                <Image
-                  src="https://images.ctfassets.net/v6ivjcl8qjz2/6xXCupM14ZkhwNsbfFOzLv/e4550484013e80aa8e4a636d3fcc1d72/hardware-carousel-mini-3-right-45-mobile-280x250.png"
-                  alt="Mini"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 space-y-2">
-                  <h3 className="text-lg font-medium">Mini</h3>
-                  <p className="text-muted-foreground">
-                    Super powered for small spaces.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">$799</span>
-                    <Button variant="outline" size="sm">
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-background rounded-lg shadow-sm overflow-hidden">
-                <Image
-                  src="https://images.ctfassets.net/v6ivjcl8qjz2/1cnevHCglJs2g2YYhJ3U6z/749006e1ec7adbda694b1377d59006fe/hardware-carousel-duo-2022-customer-right-45-mobile-280x250-2x.png"
-                  alt="Duo"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 space-y-2">
-                  <h3 className="text-lg font-medium">Duo</h3>
-                  <p className="text-muted-foreground">
-                    Built with speed in mind.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">$1,799</span>
-                    <Button variant="outline" size="sm">
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-background rounded-lg shadow-sm overflow-hidden">
-                <Image
-                  src="https://images.ctfassets.net/v6ivjcl8qjz2/7pokPoZCrTKWcXL95QkJKz/862116a4a8410250fbfd8a0ef7d30444/hardware-carousel-solo-top-with-stand-mobile-280x250-2x.png"
-                  alt="Solo"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 space-y-2">
-                  <h3 className="text-lg font-medium">Solo</h3>
-                  <p className="text-muted-foreground">
-                    A power-packed workstation.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">$1,699</span>
-                    <Button variant="outline" size="sm">
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-background rounded-lg shadow-sm overflow-hidden">
-                <Image
-                  src="https://images.ctfassets.net/v6ivjcl8qjz2/3gShfHn1S0UuwQ7DX2CzuT/87934e9ef408a35328fc4202eda9c926/hardware-carousel-kds-sizes-mobile.webp"
-                  alt="KDS"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 space-y-2">
-                  <h3 className="text-lg font-medium">KDS</h3>
-                  <p className="text-muted-foreground">
-                    Restaurant operations elevated.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">$799</span>
-                    <Button variant="outline" size="sm">
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-background rounded-lg shadow-sm overflow-hidden">
-                <Image
-                  src="https://images.ctfassets.net/v6ivjcl8qjz2/5yOtc8v8eeS2a6FzWUwCOa/2b54307f652859f81d0081ff41948ff7/hardware-carousel-go-3-right-45-mobile-280x250-2x.png"
-                  alt="Go"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 space-y-2">
-                  <h3 className="text-lg font-medium">Go</h3>
-                  <p className="text-muted-foreground">A pocket-sized POS.</p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-lg">$149</span>
-                    <Button variant="outline" size="sm">
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
