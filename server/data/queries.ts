@@ -1,5 +1,8 @@
+import { text } from "drizzle-orm/pg-core";
+import { cart, items } from "../db/schema";
 import { cache } from "react";
-import { db } from ".";
+import { db } from "../db";
+import { eq } from "drizzle-orm";
 
 export const getProducts = cache(async () => {
   try {

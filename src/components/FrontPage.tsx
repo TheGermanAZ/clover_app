@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { getProducts } from "../../server/db/queries";
+import { getProducts } from "../../server/data/queries";
+import ItemButton from "./ItemButton";
 
 export async function FrontPage() {
   const products = await getProducts();
@@ -101,9 +102,7 @@ export async function FrontPage() {
                       <span className="font-bold text-lg">
                         ${product.price}
                       </span>
-                      <Button variant="outline" size="sm">
-                        Add to Cart
-                      </Button>
+                      <ItemButton product={product}>Add to Cart</ItemButton>
                     </div>
                   </div>
                 </div>
