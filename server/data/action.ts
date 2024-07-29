@@ -17,7 +17,6 @@ export const addtoCart = async (productId: number) => {
       quantity: 1,
       price: product.price,
     });
-    console.log(product);
     return product;
   } catch (error) {
     console.error("Error adding product to cart:", error);
