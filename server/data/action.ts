@@ -1,5 +1,5 @@
 "use server";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import { cart, items } from "../db/schema";
 
@@ -12,11 +12,30 @@ export const addtoCart = async (productId: number) => {
     if (!product) {
       throw new Error("Product not found");
     }
-    await db.insert(cart).values({
-      itemId: productId,
-      quantity: 1,
-      price: product.price,
-    });
+
+    const productCount = db
+      .$with("product_count")
+      .as(
+        db
+          .select({ product_quantity: cart.quantity })
+          .from(cart)
+          .where(eq(cart.itemId, productId))
+      );
+
+    await db
+      .with(productCount)
+      .insert(cart)
+      .values({
+        itemId: productId,
+        quantity: 1,
+        price: product.price,
+      })
+      .onConflictDoUpdate({
+        target: cart.itemId,
+        set: {
+          quantity: Number(productCount) + 1,
+        },
+      });
     return product;
   } catch (error) {
     console.error("Error adding product to cart:", error);
