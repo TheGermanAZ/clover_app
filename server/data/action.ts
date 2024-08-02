@@ -3,6 +3,7 @@ import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import { cart, items } from "../db/schema";
 
+const idMap = new Map<number, boolean>();
 export const addtoCart = async (productId: number) => {
   try {
     const product = await db.query.items.findFirst({
@@ -22,20 +23,24 @@ export const addtoCart = async (productId: number) => {
           .where(eq(cart.itemId, productId))
       );
 
-    await db
-      .with(productCount)
-      .insert(cart)
-      .values({
+    if (idMap.get(productId)) {
+      const [product] = await db
+        .select()
+        .from(cart)
+        .where(eq(cart.itemId, productId));
+
+      await db
+        .update(cart)
+        .set({ quantity: product.quantity + 1 })
+        .where(eq(cart.itemId, productId));
+    } else {
+      idMap.set(productId, true);
+      await db.insert(cart).values({
         itemId: productId,
         quantity: 1,
         price: product.price,
-      })
-      .onConflictDoUpdate({
-        target: cart.itemId,
-        set: {
-          quantity: Number(productCount) + 1,
-        },
       });
+    }
     return product;
   } catch (error) {
     console.error("Error adding product to cart:", error);
