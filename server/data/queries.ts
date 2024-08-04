@@ -13,3 +13,38 @@ export const getProducts = cache(async () => {
     throw error;
   }
 });
+
+export const getProduct = cache(async (productId: number) => {
+  try {
+    const product = await db.query.items.findFirst({
+      where: eq(items.id, productId),
+    });
+    return product;
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    throw error;
+  }
+});
+
+export const getCart = cache(async () => {
+  try {
+    const cart = await db.query.cart.findMany();
+    return cart;
+  } catch (error) {
+    console.error("Error fetching cart:", error);
+    throw error;
+  }
+});
+
+export const getCartItem = cache(async (productId: number) => {
+  try {
+    const cartItem = await db
+      .select()
+      .from(cart)
+      .where(eq(cart.itemId, productId));
+    return cartItem;
+  } catch (error) {
+    console.error("Error fetching cart item:", error);
+    throw error;
+  }
+});

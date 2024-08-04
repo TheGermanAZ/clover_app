@@ -4,6 +4,7 @@ import { db } from "../db";
 import { cart, items } from "../db/schema";
 
 const idMap = new Map<number, boolean>();
+
 export const addtoCart = async (productId: number) => {
   try {
     const product = await db.query.items.findFirst({
@@ -13,15 +14,6 @@ export const addtoCart = async (productId: number) => {
     if (!product) {
       throw new Error("Product not found");
     }
-
-    const productCount = db
-      .$with("product_count")
-      .as(
-        db
-          .select({ product_quantity: cart.quantity })
-          .from(cart)
-          .where(eq(cart.itemId, productId))
-      );
 
     if (idMap.get(productId)) {
       const [product] = await db
@@ -36,6 +28,7 @@ export const addtoCart = async (productId: number) => {
     } else {
       idMap.set(productId, true);
       await db.insert(cart).values({
+        name: product.title,
         itemId: productId,
         quantity: 1,
         price: product.price,

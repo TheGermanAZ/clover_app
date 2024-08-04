@@ -1,4 +1,4 @@
-import { pgTable, serial, text } from "drizzle-orm/pg-core";
+import { integer, pgTable, serial, text } from "drizzle-orm/pg-core";
 
 export const items = pgTable("items", {
   id: serial("id").primaryKey(),
@@ -11,8 +11,11 @@ export const items = pgTable("items", {
 // TODO: add a userid to cart either with a user table or 3rd party auth
 export const cart = pgTable("cart", {
   id: serial("id").primaryKey(),
-  itemId: serial("item_id").notNull(),
-  quantity: serial("quantity").notNull(),
+  name: text("name").notNull(),
+  itemId: integer("item_id")
+    .notNull()
+    .references(() => items.id),
+  quantity: integer("quantity").notNull(),
   price: text("price").notNull(),
 });
 
