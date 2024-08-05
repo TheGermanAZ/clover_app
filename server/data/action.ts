@@ -28,7 +28,6 @@ export const addtoCart = async (productId: number) => {
     } else {
       idMap.set(productId, true);
       await db.insert(cart).values({
-        name: product.title,
         itemId: productId,
         quantity: 1,
         price: product.price,

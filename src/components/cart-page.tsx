@@ -24,18 +24,20 @@ export async function CartPage() {
     <div className="bg-background p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Shopping Cart</h2>
       <div className="space-y-4">
-        {cart.map((item) => (
+        {cart.map(async (item) => (
           <div key={item.id} className="flex items-center gap-4">
             <Image
-              src="/placeholder.svg"
-              alt={item.name}
+              src={(await getProduct(item.itemId))?.imageRef || ""}
+              alt={(await getProduct(item.itemId))?.title || ""}
               width={80}
               height={80}
               className="rounded-md object-cover"
               style={{ aspectRatio: "80/80", objectFit: "cover" }}
             />
             <div className="flex-1">
-              <h3 className="font-semibold">{item.name}</h3>
+              <h3 className="font-semibold">
+                {(await getProduct(item.itemId))?.title || ""}
+              </h3>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Button
                   variant="outline"
