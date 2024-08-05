@@ -58,7 +58,10 @@ export async function CartPage() {
               </div>
             </div>
             <div className="font-semibold">
-              {/* ${(item.price * item.quantity).toFixed(2)} */}
+              $
+              {(
+                Number((await getProduct(item.itemId))?.price) * item.quantity
+              ).toFixed(2)}
             </div>
             <Button
               variant="ghost"

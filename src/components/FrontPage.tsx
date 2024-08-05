@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { getProducts } from "../../server/data/queries";
-import ItemButton from "./ItemButton";
+import ItemButton from "./actionButtons/ItemButton";
 
 export async function FrontPage() {
   const products = await getProducts();

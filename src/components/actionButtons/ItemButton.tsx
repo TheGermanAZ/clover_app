@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "./ui/button";
-import { addtoCart } from "../../server/data/action";
+import { Button } from "../ui/button";
+import { addtoCart } from "../../../server/data/action";
 
 type Props = {
   children: React.ReactNode;
