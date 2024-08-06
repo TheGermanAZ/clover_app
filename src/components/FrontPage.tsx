@@ -34,13 +34,15 @@ export async function FrontPage() {
             Support
           </Link>
         </nav> */}
-        <Button
-          variant="default"
-          className="hidden md:inline-flex hover:bg-primary-foreground/10"
-        >
-          <ShoppingCartIcon className="w-5 h-5 mr-2" />
-          Cart
-        </Button>
+        <Link href="/cart">
+          <Button
+            variant="default"
+            className="hidden md:inline-flex hover:bg-primary-foreground/10"
+          >
+            <ShoppingCartIcon className="w-5 h-5 mr-2" />
+            Cart
+          </Button>
+        </Link>
       </header>
       <main className="flex-1">
         <section className="bg-primary py-12 md:py-20 px-4 md:px-8">
