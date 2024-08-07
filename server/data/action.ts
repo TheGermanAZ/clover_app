@@ -2,6 +2,7 @@
 import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import { cart, items } from "../db/schema";
+import { revalidatePath } from "next/cache";
 
 const idMap = new Map<number, boolean>();
 
@@ -33,6 +34,34 @@ export const addtoCart = async (productId: number) => {
         price: product.price,
       });
     }
+    return product;
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
+    throw error;
+  }
+};
+
+export const addProduct = async (productId: number) => {
+  try {
+    const product = await db.query.items.findFirst({
+      where: eq(items.id, productId),
+    });
+
+    if (!product) {
+      throw new Error("Product not found");
+    }
+
+    const [producttoAdd] = await db
+      .select()
+      .from(cart)
+      .where(eq(cart.itemId, productId));
+
+    await db
+      .update(cart)
+      .set({ quantity: producttoAdd.quantity + 1 })
+      .where(eq(cart.itemId, productId));
+
+    revalidatePath("/cart");
     return product;
   } catch (error) {
     console.error("Error adding product to cart:", error);

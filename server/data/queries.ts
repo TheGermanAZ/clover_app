@@ -2,11 +2,13 @@ import { text } from "drizzle-orm/pg-core";
 import { cart, items } from "../db/schema";
 import { cache } from "react";
 import { db } from "../db";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 export const getProducts = cache(async () => {
   try {
-    const products = await db.query.items.findMany();
+    const products = await db.query.items.findMany({
+      orderBy: [asc(items.title)],
+    });
     return products;
   } catch (error) {
     console.error("Error fetching products:", error);

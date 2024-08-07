@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { SelectCart } from "../../server/db/schema";
 import Image from "next/image";
 import { getCart, getProduct } from "../../server/data/queries";
+import AddButton from "./actionButtons/addButton";
 
 export async function CartPage() {
   // const [cart, setCart] = useState<SelectCart[]>([]);
@@ -27,8 +28,8 @@ export async function CartPage() {
         {cart.map(async (item) => (
           <div key={item.id} className="flex items-center gap-4">
             <Image
-              src={(await getProduct(item.itemId))?.imageRef || ""}
-              alt={(await getProduct(item.itemId))?.title || ""}
+              src={(await getProduct(item.itemId))?.imageRef ?? ""}
+              alt={(await getProduct(item.itemId))?.title ?? ""}
               width={80}
               height={80}
               className="rounded-md object-cover"
@@ -36,7 +37,7 @@ export async function CartPage() {
             />
             <div className="flex-1">
               <h3 className="font-semibold">
-                {(await getProduct(item.itemId))?.title || ""}
+                {(await getProduct(item.itemId))?.title ?? ""}
               </h3>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Button
@@ -48,13 +49,12 @@ export async function CartPage() {
                   <MinusIcon className="h-4 w-4" />
                 </Button>
                 <span>{item.quantity}</span>
-                <Button
-                  variant="outline"
-                  size="icon"
+                <AddButton
+                  product={(await getProduct(item.itemId))!}
                   // onClick={() => updateQuantity(item.id, item.quantity + 1)}
                 >
                   <PlusIcon className="h-4 w-4" />
-                </Button>
+                </AddButton>
               </div>
             </div>
             <div className="font-semibold">

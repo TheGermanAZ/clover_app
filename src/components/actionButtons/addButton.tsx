@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
-import { addtoCart } from "../../../server/data/action";
+import { addProduct } from "../../../server/data/action";
 
 type Props = {
   children: React.ReactNode;
@@ -13,14 +13,14 @@ type Props = {
   };
 };
 
-const ItemButton = ({ children, product }: Props) => {
+const AddButton = ({ children, product }: Props) => {
   return (
-    <form action={addtoCart.bind(null, product.id)}>
-      <Button variant="outline" size="sm">
+    <form action={addProduct.bind(null, product.id)}>
+      <Button variant="outline" size="icon">
         {children}
       </Button>
     </form>
   );
 };
 
-export default ItemButton;
+export default AddButton;
