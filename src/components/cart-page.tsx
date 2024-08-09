@@ -4,6 +4,8 @@ import { SelectCart } from "../../server/db/schema";
 import Image from "next/image";
 import { getCart, getProduct } from "../../server/data/queries";
 import AddButton from "./actionButtons/addButton";
+import Link from "next/link";
+import DeleteButton from "./actionButtons/deleteButton";
 
 export async function CartPage() {
   // const [cart, setCart] = useState<SelectCart[]>([]);
@@ -63,13 +65,9 @@ export async function CartPage() {
                 Number((await getProduct(item.itemId))?.price) * item.quantity
               ).toFixed(2)}
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              // onClick={() => removeItem(item.id)}
-            >
+            <DeleteButton product={(await getProduct(item.itemId))!}>
               <Trash2Icon className="h-5 w-5 text-muted-foreground" />
-            </Button>
+            </DeleteButton>
           </div>
         ))}
       </div>
@@ -79,7 +77,9 @@ export async function CartPage() {
         <span className="font-semibold">${total.toFixed(2)}</span>
       </div>
       <div className="mt-4 flex justify-end gap-2">
-        <Button variant="outline">Continue Shopping</Button>
+        <Link href="/">
+          <Button variant="outline">Continue Shopping</Button>
+        </Link>
         <Button>Proceed to Checkout</Button>
       </div>
     </div>
