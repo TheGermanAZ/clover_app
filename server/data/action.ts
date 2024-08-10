@@ -3,6 +3,7 @@ import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import { cart, items } from "../db/schema";
 import { revalidatePath } from "next/cache";
+import { log } from "console";
 
 const idMap = new Map<number, boolean>();
 
@@ -99,12 +100,8 @@ export const removeProduct = async (productId: number) => {
 // TODO: pop up the removed item
 export const removeFromCart = async (productId: number) => {
   try {
-    const product = await db
-      .delete(cart)
-      .where(eq(cart.id, productId))
-      .returning();
+    await db.delete(cart).where(eq(cart.itemId, productId));
     revalidatePath("/cart");
-    return product;
   } catch (error) {
     console.error("Error removing product from cart:", error);
     throw error;

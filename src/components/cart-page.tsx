@@ -6,6 +6,7 @@ import { getCart, getProduct } from "../../server/data/queries";
 import AddButton from "./actionButtons/addButton";
 import Link from "next/link";
 import DeleteButton from "./actionButtons/deleteButton";
+import SubtractButton from "./actionButtons/subtractButton";
 
 export async function CartPage() {
   // const [cart, setCart] = useState<SelectCart[]>([]);
@@ -42,14 +43,13 @@ export async function CartPage() {
                 {(await getProduct(item.itemId))?.title ?? ""}
               </h3>
               <div className="flex items-center gap-2 text-muted-foreground">
-                <Button
-                  variant="outline"
-                  size="icon"
+                <SubtractButton
+                  product={(await getProduct(item.itemId))!}
                   // onClick={() => updateQuantity(item.id, item.quantity - 1)}
                   disabled={item.quantity === 1}
                 >
                   <MinusIcon className="h-4 w-4" />
-                </Button>
+                </SubtractButton>
                 <span>{item.quantity}</span>
                 <AddButton
                   product={(await getProduct(item.itemId))!}
