@@ -7,6 +7,8 @@ import AddButton from "./actionButtons/addButton";
 import Link from "next/link";
 import DeleteButton from "./actionButtons/deleteButton";
 import SubtractButton from "./actionButtons/subtractButton";
+import { toast } from "sonner";
+import CheckoutButton from "./actionButtons/checkoutButton";
 
 export async function CartPage() {
   // const [cart, setCart] = useState<SelectCart[]>([]);
@@ -80,7 +82,7 @@ export async function CartPage() {
         <Link href="/">
           <Button variant="outline">Continue Shopping</Button>
         </Link>
-        <Button>Proceed to Checkout</Button>
+        <CheckoutButton>Proceed to Checkout</CheckoutButton>
       </div>
     </div>
   );

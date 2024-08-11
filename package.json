@@ -23,8 +23,10 @@
     "drizzle-orm": "^0.32.1",
     "lucide-react": "^0.412.0",
     "next": "15.0.0-rc.0",
+    "next-themes": "^0.3.0",
     "react": "19.0.0-rc-d025ddd3-20240722",
     "react-dom": "19.0.0-rc-d025ddd3-20240722",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
