@@ -3,6 +3,8 @@ import React from "react";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { deleteCart, resetMap } from "../../../server/data/action";
+import Link from "next/link";
 
 type Props = {
   children: React.ReactNode;
@@ -10,21 +12,25 @@ type Props = {
 
 const CheckoutButton = (props: Props) => {
   const router = useRouter();
-  const promise = new Promise((resolve) => setTimeout(resolve, 2000));
+  const promise = new Promise((resolve) => setTimeout(resolve, 4000));
 
   return (
     <Button
-      onClick={() => {
+      onClick={async () => {
+        resetMap();
         toast.success("Checkout Successful", {
           action: {
             label: "Close",
             onClick: () => toast.dismiss(),
           },
         });
-        promise.then(() => router.push("/"));
+        await deleteCart();
+        // await promise.then(() => {
+        //   router.push("/");
+        // });
       }}
     >
-      {props.children}
+      <Link href="/">{props.children}</Link>
     </Button>
   );
 };

@@ -7,7 +7,7 @@ import { asc, eq } from "drizzle-orm";
 export const getProducts = cache(async () => {
   try {
     const products = await db.query.items.findMany({
-      orderBy: [asc(items.title)],
+      orderBy: [asc(items.id)],
     });
     return products;
   } catch (error) {
@@ -28,17 +28,19 @@ export const getProduct = cache(async (productId: number) => {
   }
 });
 
-export const getCart = cache(async () => {
+export const getCart = async () => {
   try {
-    const cart = await db.query.cart.findMany();
-    return cart;
+    const cartItems = await db.query.cart.findMany({
+      orderBy: [asc(cart.id)],
+    });
+    return cartItems;
   } catch (error) {
     console.error("Error fetching cart:", error);
     throw error;
   }
-});
+};
 
-export const getCartItem = cache(async (productId: number) => {
+export const getCartItem = async (productId: number) => {
   try {
     const cartItem = await db
       .select()
@@ -49,4 +51,4 @@ export const getCartItem = cache(async (productId: number) => {
     console.error("Error fetching cart item:", error);
     throw error;
   }
-});
+};
