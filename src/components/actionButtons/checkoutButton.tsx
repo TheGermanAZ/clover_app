@@ -15,23 +15,25 @@ const CheckoutButton = (props: Props) => {
   const promise = new Promise((resolve) => setTimeout(resolve, 4000));
 
   return (
-    <Button
-      onClick={async () => {
-        resetMap();
-        toast.success("Checkout Successful", {
-          action: {
-            label: "Close",
-            onClick: () => toast.dismiss(),
-          },
-        });
-        await deleteCart();
-        // await promise.then(() => {
-        //   router.push("/");
-        // });
-      }}
-    >
-      <Link href="/">{props.children}</Link>
-    </Button>
+    <Link href="/" passHref>
+      <Button
+        onClick={async () => {
+          resetMap();
+          toast.success("Checkout Successful", {
+            action: {
+              label: "Close",
+              onClick: () => toast.dismiss(),
+            },
+          });
+          await deleteCart();
+          // await promise.then(() => {
+          //   router.push("/");
+          // });
+        }}
+      >
+        {props.children}
+      </Button>
+    </Link>
   );
 };
 

@@ -4,6 +4,7 @@ import { db } from "../db";
 import { cart, items } from "../db/schema";
 import { revalidatePath } from "next/cache";
 import { idMap } from "@/state/cartState";
+import { log } from "console";
 
 export const addtoCart = async (productId: number) => {
   try {
@@ -111,6 +112,8 @@ export const removeFromCart = async (productId: number) => {
 
 export const deleteCart = async () => {
   try {
+    console.log("deleting cart");
+
     await db.delete(cart);
     revalidatePath("/cart");
   } catch (error) {
