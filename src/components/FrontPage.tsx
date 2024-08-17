@@ -34,7 +34,7 @@ export async function FrontPage() {
             Support
           </Link>
         </nav> */}
-        <Link href="/cart">
+        <Link href="/cart" passHref>
           <Button
             variant="default"
             className="hidden md:inline-flex hover:bg-primary-foreground/10"
