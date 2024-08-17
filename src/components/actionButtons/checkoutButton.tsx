@@ -21,10 +21,12 @@ const CheckoutButton = (props: Props) => {
           resetMap();
           try {
             await deleteCart();
-          } catch (error) {
-            toast.error("Error deleting cart");
-            console.error("Error deleting cart:", error);
-            throw error;
+          } catch (error: unknown) {
+            if (error instanceof Error) {
+              toast.error("Error deleting cart");
+              console.error("Error deleting cart:", error);
+              throw error;
+            }
           }
           toast.success("Checkout Successful");
           // await promise.then(() => {
