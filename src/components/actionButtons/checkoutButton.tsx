@@ -11,21 +11,22 @@ type Props = {
 };
 
 const CheckoutButton = (props: Props) => {
-  const router = useRouter();
-  const promise = new Promise((resolve) => setTimeout(resolve, 4000));
+  // const router = useRouter();
+  // const promise = new Promise((resolve) => setTimeout(resolve, 4000));
 
   return (
     <Link href="/" passHref>
       <Button
         onClick={async () => {
           resetMap();
-          toast.success("Checkout Successful", {
-            action: {
-              label: "Close",
-              onClick: () => toast.dismiss(),
-            },
-          });
-          await deleteCart();
+          try {
+            await deleteCart();
+          } catch (error) {
+            toast.error("Error deleting cart");
+            console.error("Error deleting cart:", error);
+            throw error;
+          }
+          toast.success("Checkout Successful");
           // await promise.then(() => {
           //   router.push("/");
           // });

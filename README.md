@@ -6,6 +6,8 @@ However, as I kept using them I realized there were edge cases that aren't easy 
 
 Overall I learned a lot about how to build a website using server actions with Nextjs and what it takes to create a modern storefront.
 
+PS: I know some prices show up as NaN, I just don't have good ideas why and I'm too tired from fighting other bugs to figure it out.
+
 ![alt text](image.png)
 ![alt text](image-1.png)
 
