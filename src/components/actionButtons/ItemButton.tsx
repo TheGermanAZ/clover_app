@@ -26,7 +26,7 @@ const ItemButton = ({ children, product }: Props) => {
             await addtoCart(product.id);
           } catch (error: unknown) {
             if (error instanceof Error) {
-              toast.error(error.message);
+              return toast.error(error.message);
             }
           }
           toast.success(`Added ${product.title} to cart`);
