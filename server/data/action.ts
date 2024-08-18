@@ -110,15 +110,18 @@ export const removeFromCart = async (productId: number) => {
   }
 };
 
-export const deleteCart = async () => {
+export const deleteCart = async (state: { status: string | null }) => {
   try {
     console.log("deleting cart");
-
+    resetMap();
     await db.delete(cart);
     revalidatePath("/cart");
+    // TODO: instead of revalidating both pages make a tag and revalidate it
+    revalidatePath("/");
+    return { status: "success" };
   } catch (error) {
     console.error("Error deleting cart:", error);
-    throw error;
+    return { status: "error" };
   }
 };
 

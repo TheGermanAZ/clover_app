@@ -7,7 +7,6 @@ import AddButton from "./actionButtons/addButton";
 import Link from "next/link";
 import DeleteButton from "./actionButtons/deleteButton";
 import SubtractButton from "./actionButtons/subtractButton";
-import { toast } from "sonner";
 import CheckoutButton from "./actionButtons/checkoutButton";
 
 export async function CartPage() {
