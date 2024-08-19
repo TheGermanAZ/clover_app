@@ -2,11 +2,12 @@
 import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import { cart, items } from "../db/schema";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, unstable_noStore } from "next/cache";
 import { idMap } from "@/state/cartState";
 import { log } from "console";
 
 export const addtoCart = async (productId: number) => {
+  unstable_noStore();
   try {
     const product = await db.query.items.findFirst({
       where: eq(items.id, productId),
