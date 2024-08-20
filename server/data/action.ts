@@ -17,8 +17,6 @@ export const addtoCart = async (productId: number) => {
       throw new Error("Product not found");
     }
 
-    console.log("putting cart item in map", idMap);
-
     if (idMap.has(productId)) {
       const [product] = await db
         .select()
@@ -113,7 +111,6 @@ export const removeFromCart = async (productId: number) => {
 
 export const deleteCart = async (state: { status: string | null }) => {
   try {
-    console.log("deleting cart");
     resetMap();
     await db.delete(cart);
     revalidatePath("/cart");
@@ -127,8 +124,5 @@ export const deleteCart = async (state: { status: string | null }) => {
 };
 
 export const resetMap = () => {
-  console.log("resetting map", idMap);
-
   idMap.clear();
-  console.log("reset map", idMap);
 };
